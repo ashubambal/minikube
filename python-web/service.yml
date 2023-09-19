@@ -4,7 +4,7 @@ metadata:
   name: python-web-svc
   namespace: python-web
 spec:
-  type: NodePort
+  type: LoadBalancer
   selector:
     app: python-web
   ports:

@@ -1,0 +1,17 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-exaple
+  namespace: python-web
+spec:
+  rules:
+  - host: "amazon.com"
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/cart"
+        backend:
+          service:
+            name: python-web-svc
+            port:
+              number: 80
