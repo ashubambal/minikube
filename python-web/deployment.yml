@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: python-web
+  name: python-web-dp
+  labels:
+    app: python-web
+spec:
+  replicas: 5
+  selector:  
+    matchLabels:
+      app: python-web
+  template:
+    metadata:
+      namespace: python-web
+      labels:
+        app: python-web
+    spec:
+      containers:
+      - name: python-web
+        image: softconsist/python-web:v1 
+        ports:
+        - containerPort: 8000
