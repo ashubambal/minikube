@@ -1,0 +1,24 @@
+#!/bin/bash
+set -e
+
+echo "📦 Installing kubectl..."
+
+KUBECTL_VERSION=$(curl -sL https://dl.k8s.io/release/stable.txt)
+
+if [[ -z "$KUBECTL_VERSION" ]]; then
+  echo "❌ Could not retrieve kubectl version. Check your internet or DNS."
+  exit 1
+fi
+
+echo "✅ Downloading kubectl version: $KUBECTL_VERSION"
+
+curl -LO "https://dl.k8s.io/release/${KUBECTL_VERSION}/bin/linux/amd64/kubectl"
+curl -LO "https://dl.k8s.io/release/${KUBECTL_VERSION}/bin/linux/amd64/kubectl.sha256"
+
+echo "🔐 Verifying checksum..."
+echo "$(cat kubectl.sha256)  kubectl" | sha256sum --check
+
+chmod +x kubectl
+sudo mv kubectl /usr/local/bin/
+kubectl version --client
+
